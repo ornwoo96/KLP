@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { useAuthStore } from '../store/authStore';
-import { UserManager } from '../services/userManager';
+import { UserManager, type UserDoc } from '../services/userManager';
+import { useEffect, useState } from 'react';
 
 type SubmitPayload = {
     nickname: string;
@@ -28,10 +29,10 @@ export function useProfileSetup({ onSuccess }: Options = {}) {
 
             await UserManager.create(
                 uid, {
-                    email: user.email ?? '',
-                    nickname: nickname.trim(),
-                    profileImageUrl: url ?? null,
-                }
+                email: user.email ?? '',
+                nickname: nickname.trim(),
+                profileImageUrl: url ?? null,
+            }
             );
             return { nickname: nickname.trim(), profileImageUrl: url };
         },
@@ -43,4 +44,16 @@ export function useProfileSetup({ onSuccess }: Options = {}) {
         isSubmitting: mutation.isPending,
         error: mutation.error as Error | null,
     };
+}
+
+export function useUserProfile(uid?: string | null) {
+    const [data, setData] = useState<UserDoc | null>(null);
+
+    useEffect(() => {
+        if (!uid) return;
+        const unsub = UserManager.onSnapshot(uid, setData);
+        return () => unsub?.();
+    }, [uid]);
+
+    return data;
 }

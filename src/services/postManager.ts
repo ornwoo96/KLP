@@ -3,7 +3,6 @@ import storage from '@react-native-firebase/storage';
 
 type NewPostInput = {
     authorId: string;
-    title: string;
     body: string;
     imageLocalPath?: string;
 };
@@ -43,8 +42,8 @@ export const PostManager = {
           }
 
         await docRef.set({
+            postId: postId,
             authorId: input.authorId,
-            title: input.title,
             body: input.body,
             imageUrls: imageUrl ?? null,
             createdAt: firestore.FieldValue.serverTimestamp(),
