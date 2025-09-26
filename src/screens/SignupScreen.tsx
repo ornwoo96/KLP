@@ -3,6 +3,7 @@ import { View, TextInput, Button, StyleSheet, Text, Alert } from 'react-native';
 import { useSignupMutation } from '../hooks/useAuthMutations';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
+import { CommonActions } from '@react-navigation/native';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Signup'>;
 
@@ -12,7 +13,12 @@ export default function SignupScreen({ navigation }: Props) {
     const [password, setPassword] = useState('');
 
     const signupMutation = useSignupMutation(() => {
-        navigation.replace('Main');
+        navigation.dispatch(
+            CommonActions.reset({
+                index: 0,
+                routes: [{ name: 'Main' }],
+            })
+        );
     });
 
     const onSubmit = () => {
@@ -28,32 +34,32 @@ export default function SignupScreen({ navigation }: Props) {
             <Text style={styles.title}>회원가입</Text>
 
             <TextInput
-                style={styles.input} 
-                placeholder="닉네임 입력" 
-                value={nickname} 
-                onChangeText={setNickname} 
+                style={styles.input}
+                placeholder="닉네임 입력"
+                value={nickname}
+                onChangeText={setNickname}
             />
 
-            <TextInput 
-                style={styles.input} 
-                placeholder="이메일 입력" 
-                value={email} 
-                onChangeText={setEmail} 
-                autoCapitalize="none" 
-                keyboardType="email-address" 
+            <TextInput
+                style={styles.input}
+                placeholder="이메일 입력"
+                value={email}
+                onChangeText={setEmail}
+                autoCapitalize="none"
+                keyboardType="email-address"
             />
 
-            <TextInput 
-                style={styles.input} 
-                placeholder="비밀번호 입력" 
-                value={password} 
-                onChangeText={setPassword} 
-                secureTextEntry 
+            <TextInput
+                style={styles.input}
+                placeholder="비밀번호 입력"
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry
             />
 
-            <Button 
-                title={signupMutation.isPending ? '가입 중...' : '가입하기'} 
-                onPress={onSubmit} 
+            <Button
+                title={signupMutation.isPending ? '가입 중...' : '가입하기'}
+                onPress={onSubmit}
             />
 
             {signupMutation.isError && (
@@ -66,25 +72,25 @@ export default function SignupScreen({ navigation }: Props) {
 }
 
 const styles = StyleSheet.create({
-    container: { 
-        flex: 1, 
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        padding: 20, 
-        backgroundColor: '#fff' 
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20,
+        backgroundColor: '#fff'
     },
-    title: { 
-        fontSize: 24, 
-        marginBottom: 24, 
-        fontWeight: '600' 
+    title: {
+        fontSize: 24,
+        marginBottom: 24,
+        fontWeight: '600'
     },
-    input: { 
-        width: '80%', 
-        borderWidth: 1, 
-        borderColor: '#ccc', 
-        borderRadius: 8, 
-        paddingHorizontal: 12, 
-        paddingVertical: 10, 
-        marginBottom: 16 
+    input: {
+        width: '80%',
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 8,
+        paddingHorizontal: 12,
+        paddingVertical: 10,
+        marginBottom: 16
     },
 });

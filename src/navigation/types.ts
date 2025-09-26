@@ -4,4 +4,5 @@ export type RootStackParamList = {
     Main: undefined;
     Detail: undefined;
     Post: undefined;
+    CreatePost: undefined;
 };
