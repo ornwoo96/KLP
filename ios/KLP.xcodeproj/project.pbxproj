@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07FFC882A0CFFEC2D7B28177 /* Pods_KLP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B84A1972307B52B217660256 /* Pods_KLP.framework */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		4D6EF3654AB6224542784D30 /* Pods_KLP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 508E98B68B9CC845C3DEE38A /* Pods_KLP.framework */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		99408CFF590A07C06415AF9A /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
+		BE7E66DF2E8589CE009915DB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE7E66DE2E8589CE009915DB /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,11 +20,12 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = KLP/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = KLP/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = KLP/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		30011656EA02C5BDF7FE2F7B /* Pods-KLP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KLP.release.xcconfig"; path = "Target Support Files/Pods-KLP/Pods-KLP.release.xcconfig"; sourceTree = "<group>"; };
-		508E98B68B9CC845C3DEE38A /* Pods_KLP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KLP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = KLP/AppDelegate.swift; sourceTree = "<group>"; };
+		809CFDD0A6891EFA687A3A7C /* Pods-KLP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KLP.debug.xcconfig"; path = "Target Support Files/Pods-KLP/Pods-KLP.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = KLP/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		B52C2CC24B9EBEF7A8CF23EA /* Pods-KLP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KLP.debug.xcconfig"; path = "Target Support Files/Pods-KLP/Pods-KLP.debug.xcconfig"; sourceTree = "<group>"; };
+		B84A1972307B52B217660256 /* Pods_KLP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KLP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE7E66DE2E8589CE009915DB /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D3C1101DF35C2E21C9BC1053 /* Pods-KLP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KLP.release.xcconfig"; path = "Target Support Files/Pods-KLP/Pods-KLP.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -32,7 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D6EF3654AB6224542784D30 /* Pods_KLP.framework in Frameworks */,
+				07FFC882A0CFFEC2D7B28177 /* Pods_KLP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -47,6 +49,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
+				BE7E66DE2E8589CE009915DB /* GoogleService-Info.plist */,
 			);
 			name = KLP;
 			sourceTree = "<group>";
@@ -55,7 +58,7 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				508E98B68B9CC845C3DEE38A /* Pods_KLP.framework */,
+				B84A1972307B52B217660256 /* Pods_KLP.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -92,8 +95,8 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B52C2CC24B9EBEF7A8CF23EA /* Pods-KLP.debug.xcconfig */,
-				30011656EA02C5BDF7FE2F7B /* Pods-KLP.release.xcconfig */,
+				809CFDD0A6891EFA687A3A7C /* Pods-KLP.debug.xcconfig */,
+				D3C1101DF35C2E21C9BC1053 /* Pods-KLP.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -105,14 +108,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "KLP" */;
 			buildPhases = (
-				551046E2BD34C2C446AD9157 /* [CP] Check Pods Manifest.lock */,
+				81A637E05366A078A725EDA1 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				9B83F00F914B0FB8FEA886B7 /* [CP] Embed Pods Frameworks */,
-				7E9C51980EC269FE28AA37C7 /* [CP] Copy Pods Resources */,
-				C0241FC35961AD9DBC2DA7A3 /* [CP-User] [RNFB] Core Configuration */,
+				77129454A357AE05865C3484 /* [CP] Embed Pods Frameworks */,
+				B7ABD7E167B2FFABD73D1F3D /* [CP] Copy Pods Resources */,
+				E1F681BE0E785542550151E6 /* [CP-User] [RNFB] Core Configuration */,
 			);
 			buildRules = (
 			);
@@ -160,6 +163,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				BE7E66DF2E8589CE009915DB /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				99408CFF590A07C06415AF9A /* PrivacyInfo.xcprivacy in Resources */,
 			);
@@ -184,7 +188,24 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		551046E2BD34C2C446AD9157 /* [CP] Check Pods Manifest.lock */ = {
+		77129454A357AE05865C3484 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-KLP/Pods-KLP-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-KLP/Pods-KLP-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KLP/Pods-KLP-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		81A637E05366A078A725EDA1 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -206,7 +227,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7E9C51980EC269FE28AA37C7 /* [CP] Copy Pods Resources */ = {
+		B7ABD7E167B2FFABD73D1F3D /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -223,24 +244,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KLP/Pods-KLP-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9B83F00F914B0FB8FEA886B7 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-KLP/Pods-KLP-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-KLP/Pods-KLP-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KLP/Pods-KLP-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C0241FC35961AD9DBC2DA7A3 /* [CP-User] [RNFB] Core Configuration */ = {
+		E1F681BE0E785542550151E6 /* [CP-User] [RNFB] Core Configuration */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -269,7 +273,7 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B52C2CC24B9EBEF7A8CF23EA /* Pods-KLP.debug.xcconfig */;
+			baseConfigurationReference = 809CFDD0A6891EFA687A3A7C /* Pods-KLP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -297,7 +301,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 30011656EA02C5BDF7FE2F7B /* Pods-KLP.release.xcconfig */;
+			baseConfigurationReference = D3C1101DF35C2E21C9BC1053 /* Pods-KLP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

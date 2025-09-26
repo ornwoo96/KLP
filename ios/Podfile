@@ -1,3 +1,4 @@
+$RNFirebaseAsStaticFramework = true
 # Resolve react_native_pods.rb with node to allow for hoisting
 require Pod::Executable.execute_command('node', ['-p',
   'require.resolve(
@@ -8,7 +9,7 @@ require Pod::Executable.execute_command('node', ['-p',
 platform :ios, min_ios_version_supported
 prepare_react_native_project!
 
-use_frameworks! :linkage => :dynamic
+use_frameworks! :linkage => :static
 
 target 'KLP' do
   config = use_native_modules!

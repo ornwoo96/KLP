@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "645858647907",
+    "project_id": "klp-test-1b6ee",
+    "storage_bucket": "klp-test-1b6ee.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:645858647907:android:aa2cd51a7341ed83ac7d56",
+        "android_client_info": {
+          "package_name": "com.klp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEuq-RYQYPqlO5Bc3dxO7a6jvfrbvfYDc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
