@@ -3,6 +3,6 @@ export type RootStackParamList = {
     Signup: undefined;
     Main: undefined;
     Detail: undefined;
-    Post: undefined;
     CreatePost: undefined;
+    ProfileSetup: undefined;
 };

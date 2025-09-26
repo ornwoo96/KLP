@@ -2,15 +2,14 @@ import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Text, TouchableOpacity, Alert } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/types';
-import { useLoginMutation } from '../hooks/useAuthMutations';
+import { useLogin } from '../hooks/useSingup';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
 function LoginScreen({ navigation }: Props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const loginMutation = useLoginMutation(() => navigation.replace('Main'));
-
+    const loginMutation = useLogin(() => navigation.replace('Main'));
 
     const handleLogin = () => {
         if (!email || !password) {

@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { AuthManager, SignupPayload } from '../services/authManager';
 import { useAuthStore } from '../store/authStore';
 
-export function useSignupMutation(onSuccess?: () => void) {
+export function useSignup(onSuccess?: () => void) {
     const setUser = useAuthStore((s) => s.setUser);
 
     return useMutation({
@@ -14,7 +14,7 @@ export function useSignupMutation(onSuccess?: () => void) {
     });
 }
 
-export function useLoginMutation(onSuccess?: () => void) {
+export function useLogin(onSuccess?: () => void) {
     const setUser = useAuthStore((s) => s.setUser);
 
     return useMutation({

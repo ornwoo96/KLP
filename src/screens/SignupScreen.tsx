@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Text, Alert } from 'react-native';
-import { useSignupMutation } from '../hooks/useAuthMutations';
+import { 
+    View, 
+    TextInput, 
+    Button, 
+    StyleSheet, 
+    Text, 
+    Alert 
+} from 'react-native';
+import { useSignup } from '../hooks/useSingup';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
 import { CommonActions } from '@react-navigation/native';
@@ -8,38 +15,28 @@ import { CommonActions } from '@react-navigation/native';
 type Props = NativeStackScreenProps<RootStackParamList, 'Signup'>;
 
 export default function SignupScreen({ navigation }: Props) {
-    const [nickname, setNickname] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const signupMutation = useSignupMutation(() => {
+    const signupMutation = useSignup(() => {
         navigation.dispatch(
             CommonActions.reset({
                 index: 0,
-                routes: [{ name: 'Main' }],
+                routes: [{ name: 'ProfileSetup' }],
             })
         );
     });
 
     const onSubmit = () => {
-        if (!nickname || !email || !password) {
-            Alert.alert('알림', '닉네임/이메일/비밀번호를 입력해주세요.');
+        if (!email || !password) {
+            Alert.alert('알림', '이메일/비밀번호를 입력해주세요.');
             return;
         }
-        signupMutation.mutate({ nickname, email, password });
+        signupMutation.mutate({ email, password });
     };
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>회원가입</Text>
-
-            <TextInput
-                style={styles.input}
-                placeholder="닉네임 입력"
-                value={nickname}
-                onChangeText={setNickname}
-            />
-
             <TextInput
                 style={styles.input}
                 placeholder="이메일 입력"
@@ -74,7 +71,7 @@ export default function SignupScreen({ navigation }: Props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center',
         padding: 20,
         backgroundColor: '#fff'

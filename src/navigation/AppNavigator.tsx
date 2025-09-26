@@ -5,8 +5,8 @@ import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
 import MainScreen from '../screens/MainScreen';
 import DetailScreen from '../screens/PostDetailScreen';
-import PostScreen from '../screens/CreatePostScreen';
 import CreatePostScreen from '../screens/CreatePostScreen';
+import ProfileSetupScreen from '../screens/ProfileSetupScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -19,8 +19,8 @@ const SCREENS: {
         { name: 'Signup', component: SignupScreen, options: { title: '회원가입' } },
         { name: 'Main', component: MainScreen, options: { title: '메인' } },
         { name: 'Detail', component: DetailScreen, options: { title: '상세' } },
-        { name: 'Post', component: PostScreen, options: { title: '게시물' } },
         { name: 'CreatePost', component: CreatePostScreen, options: { title: '게시물 작성' } },
+        { name: 'ProfileSetup', component: ProfileSetupScreen, options: { title: '프로필 작성' } },
     ];
 
 
