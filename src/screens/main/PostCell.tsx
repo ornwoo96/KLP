@@ -4,15 +4,15 @@ import {
   Text,
   Image,
   StyleSheet,
-  Modal,
   TouchableOpacity,
   Pressable,
 } from 'react-native';
 import type { Post } from '../../services/postManager';
+import ImagePreviewSheet from '../../components/ImagePreviewSheet';
 
 type Props = {
   post: Post;
-  onPress?: (post: Post) => void;   // 셀 전체 터치
+  onPress?: (post: Post) => void; 
 };
 
 export default function PostCell({ post, onPress }: Props) {
@@ -41,7 +41,7 @@ export default function PostCell({ post, onPress }: Props) {
               {post.authorNickname ?? 'Unknown'}
             </Text>
             <Text style={styles.subMeta}>{post.createdAt?.toDate().toLocaleString()}</Text>
-           
+
           </View>
         </View>
 
@@ -54,21 +54,11 @@ export default function PostCell({ post, onPress }: Props) {
         <Text style={styles.body}>{post.body}</Text>
       </Pressable>
 
-      <Modal visible={openPreview} transparent animationType="fade" onRequestClose={handleClosePreview}>
-        <View style={styles.previewBackdrop}>
-          <Pressable style={StyleSheet.absoluteFill} onPress={handleClosePreview} />
-          {!!post.imageUrl && (
-            <Image
-              source={{ uri: post.imageUrl }}
-              style={styles.previewImage}
-              resizeMode="contain"
-            />
-          )}
-          <TouchableOpacity onPress={handleClosePreview} style={styles.closeBtn} activeOpacity={0.8}>
-            <Text style={styles.closeBtnText}>✕</Text>
-          </TouchableOpacity>
-        </View>
-      </Modal>
+      <ImagePreviewSheet
+        visible={openPreview}
+        uri={post.imageUrl}
+        onClose={handleClosePreview}
+      />
     </>
   );
 }
@@ -86,43 +76,43 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 10,
   },
-  avatar: { 
-    width: 32, 
-    height: 32, 
-    borderRadius: 16, 
-    backgroundColor: '#ddd' 
+  avatar: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: '#ddd'
   },
-  avatarFallback: { 
-    alignItems: 'center', 
-    justifyContent: 'center', 
-    backgroundColor: '#2979ff' 
+  avatarFallback: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#2979ff'
   },
-  avatarInitial: { 
-    color: '#fff', 
-    fontWeight: '700' 
+  avatarInitial: {
+    color: '#fff',
+    fontWeight: '700'
   },
-  authorName: { 
-    fontSize: 15, 
-    fontWeight: '600', 
-    color: '#111827', 
-    maxWidth: 220 
+  authorName: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: '#111827',
+    maxWidth: 220
   },
-  subMeta: { 
-    fontSize: 12, 
-    color: '#6b7280', 
-    marginTop: 2 
+  subMeta: {
+    fontSize: 12,
+    color: '#6b7280',
+    marginTop: 2
   },
-  image: { 
-    width: '100%', 
-    height: 180, 
-    borderRadius: 10, 
+  image: {
+    width: '100%',
+    height: 180,
+    borderRadius: 10,
     marginBottom: 10,
     backgroundColor: '#ddd'
   },
-  body: { 
-    fontSize: 15, 
-    lineHeight: 20, 
-    color: '#111827' 
+  body: {
+    fontSize: 15,
+    lineHeight: 20,
+    color: '#111827'
   },
   previewBackdrop: {
     flex: 1,
@@ -130,9 +120,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  previewImage: { 
-    width: '100%', 
-    height: '80%' 
+  previewImage: {
+    width: '100%',
+    height: '80%'
   },
   closeBtn: {
     position: 'absolute',
@@ -145,9 +135,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  closeBtnText: { 
-    color: '#fff', 
-    fontSize: 20, 
-    fontWeight: '700' 
+  closeBtnText: {
+    color: '#fff',
+    fontSize: 20,
+    fontWeight: '700'
   },
 });

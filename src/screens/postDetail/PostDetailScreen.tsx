@@ -7,8 +7,6 @@ import {
     FlatList,
     Platform,
     TouchableOpacity,
-    Modal,
-    Pressable,
 } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../../navigation/types';
@@ -17,6 +15,7 @@ import DefaultBottomSheet from '../../components/DefaultBottomSheet';
 import PostCommentCell, { PostComment } from './PostCommentCell';
 import BottomRoundedButton from '../../components/BottomRoundedButton';
 import CreatePostCommentSheet from './CreatePostCommentSheet';
+import ImagePreviewSheet from '../../components/ImagePreviewSheet';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PostDetail'>;
 
@@ -111,17 +110,11 @@ export default function PostDetailScreen({ navigation, route }: Props) {
             </DefaultBottomSheet>
 
             {/* 이미지 프리뷰 */}
-            <Modal visible={openPreview} transparent animationType="fade" onRequestClose={() => setOpenPreview(false)}>
-                <View style={styles.previewBackdrop}>
-                    <Pressable style={StyleSheet.absoluteFill} onPress={() => setOpenPreview(false)} />
-                    {!!post.imageUrl && (
-                        <Image source={{ uri: post.imageUrl }} style={styles.previewImage} resizeMode="contain" />
-                    )}
-                    <TouchableOpacity onPress={() => setOpenPreview(false)} style={styles.closeBtn}>
-                        <Text style={styles.closeBtnText}>✕</Text>
-                    </TouchableOpacity>
-                </View>
-            </Modal>
+            <ImagePreviewSheet
+                visible={openPreview}
+                uri={post.imageUrl}
+                onClose={() => setOpenPreview(false)}
+            />
         </View>
     );
 }
@@ -145,7 +138,7 @@ const styles = StyleSheet.create({
         alignItems: 'center', justifyContent: 'center',
     },
     previewImage: { width: '100%', height: '80%' },
-    
+
     closeBtn: {
         position: 'absolute', top: 24, right: 16,
         width: 36, height: 36, borderRadius: 18,
