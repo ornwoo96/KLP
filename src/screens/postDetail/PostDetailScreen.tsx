@@ -1,4 +1,3 @@
-
 import React, { useLayoutEffect, useMemo, useState } from 'react';
 import {
     View,
@@ -17,14 +16,15 @@ import { useComments } from '../../hooks/usePost';
 import DefaultBottomSheet from '../../components/DefaultBottomSheet';
 import PostCommentCell, { PostComment } from './PostCommentCell';
 import BottomRoundedButton from '../../components/BottomRoundedButton';
+import CreatePostCommentSheet from './CreatePostCommentSheet';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PostDetail'>;
 
 export default function PostDetailScreen({ navigation, route }: Props) {
     const { post } = route.params;
-    const [ openPreview, setOpenPreview ] = useState(false);
+    const [openPreview, setOpenPreview] = useState(false);
     const { data: comments, isLoading, refetch } = useComments(post.postId);
-    const [ openCreateCommentView, setOpen ] = useState(false);
+    const [openCreateCommentView, setOpen] = useState(false);
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -32,7 +32,6 @@ export default function PostDetailScreen({ navigation, route }: Props) {
             headerTintColor: '#000',
         });
     }, [navigation]);
-
 
     const header = useMemo(() => (
         <View style={styles.card}>
@@ -99,12 +98,16 @@ export default function PostDetailScreen({ navigation, route }: Props) {
             <DefaultBottomSheet
                 open={openCreateCommentView}
                 onClose={() => setOpen(false)}
-                snapPoints={['93%']}                
+                snapPoints={['93%']}
             >
-                <Text style={{ fontSize: 16, fontWeight: '700', marginBottom: 12 }}>댓글 달기</Text>
-                <TouchableOpacity onPress={() => setOpen(false)} style={{ marginTop: 12 }}>
-                    <Text>닫기</Text>
-                </TouchableOpacity>
+                <CreatePostCommentSheet
+                    postId={post.postId}
+                    onPosted={() => {
+                        setOpen(false);
+                        refetch(); // 필요시
+                    }}
+                    onClose={() => setOpen(false)}
+                />
             </DefaultBottomSheet>
 
             {/* 이미지 프리뷰 */}
@@ -126,7 +129,6 @@ export default function PostDetailScreen({ navigation, route }: Props) {
 const styles = StyleSheet.create({
     wrap: { flex: 1, backgroundColor: '#fff' },
 
-    // 게시물 카드
     card: { padding: 14, backgroundColor: '#fff' },
     header: { flexDirection: 'row', alignItems: 'center', marginBottom: 10 },
     avatar: { width: 32, height: 32, borderRadius: 16, backgroundColor: '#ddd' },
@@ -138,12 +140,12 @@ const styles = StyleSheet.create({
     image: { width: '100%', height: 220, borderRadius: 10, marginTop: 2, marginBottom: 8, backgroundColor: '#ddd' },
     sectionTitle: { marginTop: 8, fontSize: 16, fontWeight: '700' },
 
-    // 프리뷰 모달
     previewBackdrop: {
         flex: 1, backgroundColor: 'rgba(0,0,0,0.92)',
         alignItems: 'center', justifyContent: 'center',
     },
     previewImage: { width: '100%', height: '80%' },
+    
     closeBtn: {
         position: 'absolute', top: 24, right: 16,
         width: 36, height: 36, borderRadius: 18,
@@ -151,6 +153,7 @@ const styles = StyleSheet.create({
         alignItems: 'center', justifyContent: 'center',
     },
     closeBtnText: { color: '#fff', fontSize: 20, fontWeight: '700' },
+
     commentStubBar: {
         position: 'absolute',
         left: 0,
@@ -168,6 +171,7 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: -2 },
         elevation: 12,
     },
+
     commentStubInput: {
         flex: 1,
         fontSize: 15,

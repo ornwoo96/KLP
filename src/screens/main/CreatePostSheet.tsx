@@ -8,7 +8,8 @@ import {
   StyleSheet,
   Platform,
   ScrollView,
-  InputAccessoryView,
+  Keyboard,
+  Alert,
 } from 'react-native';
 import { HeaderProfile } from '../../components/HeaderProfile';
 import * as ImagePicker from 'react-native-image-picker';
@@ -17,6 +18,7 @@ import { KeyboardAvoidingView } from 'react-native';
 import { useCreatePost } from '../../hooks/usePost';
 import { useAuthStore } from '../../store/authStore';
 import { useUserProfile } from '../../hooks/useUser';
+import PostAccessoryBar from '../../components/PostAccessoryBar';
 
 type Props = {
   onPosted?: () => void;
@@ -48,15 +50,26 @@ export default function CreatePostSheet({ onPosted, onClose }: Props) {
 
   const canPost = body.trim().length > 0;
 
-  const onPressPost = () => {
-    if (!user) return;
-    createPost({
-      authorId: user.uid,
-      authorNickname: userProfile?.nickname ?? "",
-      authorProfileImageUrl: userProfile?.profileImageUrl ?? null,
-      body: body.trim(),
-      imageLocalPath: imageUri ?? undefined,
-    });
+  const onPressPost = async () => {
+    if (!user || !canPost) return;
+    Keyboard.dismiss();
+    try {
+      const postId = await createPost({
+        authorId: user.uid,
+        authorNickname: userProfile?.nickname ?? '',
+        authorProfileImageUrl: userProfile?.profileImageUrl ?? null,
+        body: body.trim(),
+        imageLocalPath: imageUri ?? undefined,
+      });
+      onPosted?.();
+      onClose?.();
+    } catch (error) {
+      let msg = '게시 중 문제가 발생했습니다. 다시 시도해주세요.';
+      if (error instanceof Error) {
+        msg = error.message;
+      }
+      Alert.alert('게시 실패', msg, [{ text: '확인' }]);
+    }
   };
 
   return (
@@ -107,37 +120,15 @@ export default function CreatePostSheet({ onPosted, onClose }: Props) {
                 </TouchableOpacity>
               </View>
             )}
-
-
-
           </View>
         </ScrollView>
 
-        {Platform.OS === 'ios' && (
-          <InputAccessoryView nativeID="MY_BAR">
-            <View style={[styles.accessoryBar, { paddingBottom: insets.bottom || 8 }]}>
-              <TouchableOpacity
-                style={[styles.postBtn, !canPost && styles.postBtnDisabled]}
-                disabled={!canPost}
-                onPress={onPressPost}
-              >
-                <Text style={styles.postBtnText}>{isPending ? '게시 중...' : '게시'}</Text>
-              </TouchableOpacity>
-            </View>
-          </InputAccessoryView>
-        )}
-
-        {Platform.OS === 'android' && (
-          <View style={[styles.bottomBar, { paddingBottom: Math.max(insets.bottom, 8) }]}>
-            <TouchableOpacity
-              style={[styles.postBtn, !canPost && styles.postBtnDisabled]}
-              disabled={!canPost}
-              onPress={onPressPost}
-            >
-              <Text style={styles.postBtnText}>게시</Text>
-            </TouchableOpacity>
-          </View>
-        )}
+        <PostAccessoryBar
+          accessoryID={'POST_BAR'}
+          canPost={canPost}
+          isPending={isPending}
+          onPressPost={onPressPost}
+        />
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
@@ -145,15 +136,15 @@ export default function CreatePostSheet({ onPosted, onClose }: Props) {
 
 
 const styles = StyleSheet.create({
-  safe: { 
-    flex: 1, 
-    minHeight: 400, 
-    backgroundColor: '#ffffff', 
-    paddingBottom: 100 
+  safe: {
+    flex: 1,
+    minHeight: 900,
+    backgroundColor: '#ffffff',
+    paddingBottom: 100
   },
-  flex: { 
-    flex: 1, 
-    backgroundColor: '#ffffff' 
+  flex: {
+    flex: 1,
+    backgroundColor: '#ffffff'
   },
   container: {
     flex: 1,
@@ -196,49 +187,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
     borderRadius: 10,
     paddingVertical: 10,
-    paddingHorizontal: 0, 
+    paddingHorizontal: 0,
     fontSize: 16,
     minHeight: 45,
-  },
-  // iOS 액세서리 바
-  accessoryBar: {
-    height: 55,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: '#e5e7eb',
-    backgroundColor: '#fff',
-    paddingHorizontal: 16,
-    paddingTop: 10,
-    alignItems: 'flex-end',
-  },
-  // Android 하단 바
-  bottomBar: {
-    height: 55,
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: '#e5e7eb',
-    backgroundColor: '#fff',
-    paddingHorizontal: 16,
-    paddingTop: 8,
-    alignItems: 'flex-end',
-  },
-  postBtn: {
-    minWidth: 65,
-    height: 35,
-    borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#2979ff',
-    paddingHorizontal: 14,
-  },
-  postBtnDisabled: {
-    opacity: 0.4,
-  },
-  postBtnText: {
-    color: '#fff',
-    fontWeight: '700',
   },
   removeBtn: {
     position: 'absolute',
