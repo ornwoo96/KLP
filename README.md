@@ -1,5 +1,12 @@
 ## KLP 과제 - 김동우
-[주제] 간단한 커뮤니티 앱 MVP 개발
+#### [주제] 
+- 간단한 커뮤니티 앱 MVP 개발
+
+#### [요구 사항] 
+- 회원가입/로그인
+- 글(목록/상세/작성)
+- 이미지첨부
+- 댓글
 
 <br>
 
@@ -33,7 +40,7 @@
 - 상태 관리 & 비동기 처리 : `Zustand` · `React Query`
 -	네비게이션 : `ReactNavigation`
 -	이미지 & 미디어 : `ImagePicker`
-- 스토리지 : `AsyncStorage` : `Firebase`(`Auth` · `Firestore` · `Storage`)
+- 스토리지 : `Firebase`(`Auth` · `Firestore` · `Storage`)
 
 <br>
 
