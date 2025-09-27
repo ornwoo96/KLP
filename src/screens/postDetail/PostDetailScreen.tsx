@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useMemo, useState } from 'react';
+import React, { useLayoutEffect, useCallback, useState } from 'react';
 import {
     View,
     Text,
@@ -32,7 +32,9 @@ export default function PostDetailScreen({ navigation, route }: Props) {
         });
     }, [navigation]);
 
-    const header = useMemo(() => (
+    const commentsCount = comments?.length ?? 0;
+
+    const renderHeader = useCallback(() => (
         <View style={styles.card}>
             {/* 작성자 헤더 */}
             <View style={styles.header}>
@@ -68,9 +70,9 @@ export default function PostDetailScreen({ navigation, route }: Props) {
                 </TouchableOpacity>
             )}
 
-            <Text style={styles.sectionTitle}>댓글</Text>
+            <Text style={styles.sectionTitle}>댓글 {commentsCount}</Text>
         </View>
-    ), [post]);
+    ), [post, commentsCount]);
 
     // 댓글 아이템
     const renderItem = ({ item }: { item: PostComment }) => (
@@ -83,7 +85,8 @@ export default function PostDetailScreen({ navigation, route }: Props) {
                 data={comments ?? []}
                 renderItem={renderItem}
                 keyExtractor={(c) => c.id}
-                ListHeaderComponent={header}
+                ListHeaderComponent={renderHeader}
+                extraData={commentsCount}
                 contentContainerStyle={{ paddingBottom: Platform.OS === 'ios' ? 16 : 64 }}
                 refreshing={isLoading}
                 onRefresh={refetch}
@@ -120,7 +123,7 @@ export default function PostDetailScreen({ navigation, route }: Props) {
 }
 
 const styles = StyleSheet.create({
-    wrap: { flex: 1, backgroundColor: '#fff' },
+    wrap: { flex: 1, backgroundColor: '#fff', paddingBottom: 70, },
 
     card: { padding: 14, backgroundColor: '#fff' },
     header: { flexDirection: 'row', alignItems: 'center', marginBottom: 10 },

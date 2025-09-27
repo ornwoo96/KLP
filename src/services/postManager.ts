@@ -17,6 +17,7 @@ export type Post = {
     body: string;
     imageUrl?: string;
     createdAt: FirebaseFirestoreTypes.Timestamp;
+    commentCount: number;
 };
 
 export type Comment = {
@@ -63,6 +64,7 @@ export const PostManager = {
             body: input.body,
             imageUrl: imageUrl ?? null,
             createdAt: firestore.FieldValue.serverTimestamp(),
+            commentCount: 0,
         });
 
         return postId;
@@ -78,11 +80,17 @@ export const PostManager = {
     },
 
     async createComment(postId: string, data: Omit<Comment, 'id' | 'createdAt' | 'postId'>) {
-        await col(postId).add({
+        const commentRef = await col(postId).add({
             postId,
             ...data,
             createdAt: firestore.FieldValue.serverTimestamp(),
         });
+
+        await postDatabase.doc(postId).update({
+            commentCount: firestore.FieldValue.increment(1),
+        });
+
+        return commentRef
     },
 
     async commentlist(postId: string, limitN = 30) {

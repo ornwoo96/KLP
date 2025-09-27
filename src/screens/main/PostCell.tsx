@@ -12,7 +12,7 @@ import ImagePreviewSheet from '../../components/ImagePreviewSheet';
 
 type Props = {
   post: Post;
-  onPress?: (post: Post) => void; 
+  onPress?: (post: Post) => void;
 };
 
 export default function PostCell({ post, onPress }: Props) {
@@ -52,6 +52,14 @@ export default function PostCell({ post, onPress }: Props) {
         )}
 
         <Text style={styles.body}>{post.body}</Text>
+
+        {(post.commentCount ?? 0) > 0 && (
+          <View style={styles.metaRow}>
+            <View style={styles.badge}>
+              <Text style={styles.badgeText}>💬 댓글 {post.commentCount}개</Text>
+            </View>
+          </View>
+        )}
       </Pressable>
 
       <ImagePreviewSheet
@@ -139,5 +147,23 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 20,
     fontWeight: '700'
+  },
+  metaRow: {
+    marginTop: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  badge: {
+    paddingLeft: 6,
+    paddingRight: 8,
+    paddingVertical: 4,
+    borderRadius: 8,
+    backgroundColor: '#f3f4f6',
+    alignSelf: 'flex-start',
+  },
+  badgeText: {
+    fontSize: 12,
+    color: '#6b7280',
+    fontWeight: '600',
   },
 });
