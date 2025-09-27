@@ -12,6 +12,7 @@ import type { RootStackParamList } from '../../navigation/types';
 import DefaultBottomSheet from '../../components/DefaultBottomSheet';
 import CreatePostSheet from './CreatePostSheet';
 import { useLogout } from '../../hooks/useAuth'; 
+import { useFocusEffect } from '@react-navigation/native';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Main'>;
 
@@ -49,6 +50,11 @@ export default function MainScreen({ navigation }: Props) {
     );
   }, [logout.isPending, logout.mutate, navigation]);
 
+  useFocusEffect(
+    useCallback(() => {
+      refetch();
+    }, [refetch])
+  );
 
   useLayoutEffect(() => {
     navigation.setOptions({
