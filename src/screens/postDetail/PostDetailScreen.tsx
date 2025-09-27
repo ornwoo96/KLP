@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     authorName: { fontSize: 15, fontWeight: '600', color: '#111827', maxWidth: 220 },
     subMeta: { fontSize: 12, color: '#6b7280', marginTop: 2 },
     body: { fontSize: 15, lineHeight: 20, color: '#111827', marginBottom: 10 },
-    image: { width: '100%', height: 220, borderRadius: 10, marginTop: 2, marginBottom: 8 },
+    image: { width: '100%', height: 220, borderRadius: 10, marginTop: 2, marginBottom: 8, backgroundColor: '#ddd' },
     sectionTitle: { marginTop: 8, fontSize: 16, fontWeight: '700' },
 
     // 프리뷰 모달

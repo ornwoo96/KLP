@@ -6,7 +6,7 @@ export type PostComment = {
   authorNickname?: string;
   authorProfileImageUrl?: string | null;
   body: string;
-  createdAt?: { toDate: () => Date }; // RNFB Timestamp 호환용
+  createdAt?: { toDate: () => Date };
 };
 
 export default function PostCommentCell({ comment }: { comment: PostComment }) {
