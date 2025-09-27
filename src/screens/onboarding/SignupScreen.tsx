@@ -7,9 +7,9 @@ import {
     Text, 
     Alert 
 } from 'react-native';
-import { useSignup } from '../hooks/useAuth';
+import { useSignup } from '../../hooks/useAuth';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../navigation/types';
+import { RootStackParamList } from '../../navigation/types';
 import { CommonActions } from '@react-navigation/native';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Signup'>;

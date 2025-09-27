@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Text, TouchableOpacity, Alert } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import type { RootStackParamList } from '../navigation/types';
-import { useLogin } from '../hooks/useAuth';
+import type { RootStackParamList } from '../../navigation/types';
+import { useLogin } from '../../hooks/useAuth';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 

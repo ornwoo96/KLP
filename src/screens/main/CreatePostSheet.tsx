@@ -10,21 +10,30 @@ import {
   ScrollView,
   InputAccessoryView,
 } from 'react-native';
-import { HeaderProfile } from '../components/HeaderProfile';
+import { HeaderProfile } from '../../components/HeaderProfile';
 import * as ImagePicker from 'react-native-image-picker';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { KeyboardAvoidingView } from 'react-native';
-import { useCreatePost } from '../hooks/usePost';
-import { useAuthStore } from '../store/authStore';
+import { useCreatePost } from '../../hooks/usePost';
+import { useAuthStore } from '../../store/authStore';
+import { useUserProfile } from '../../hooks/useUser';
 
-export default function CreatePostScreen({ navigation }: any) {
+type Props = {
+  onPosted?: () => void;
+  onClose?: () => void;
+};
+
+export default function CreatePostSheet({ onPosted, onClose }: Props) {
+
   const insets = useSafeAreaInsets();
   const [imageUri, setImageUri] = useState<string | null>(null);
   const [body, setBody] = useState('');
   const user = useAuthStore(s => s.user);
+  const userProfile = useUserProfile(user?.uid);
 
   const { mutate: createPost, isPending } = useCreatePost(() => {
-    navigation.goBack();
+    onPosted?.();
+    onClose?.();
   });
 
 
@@ -43,6 +52,8 @@ export default function CreatePostScreen({ navigation }: any) {
     if (!user) return;
     createPost({
       authorId: user.uid,
+      authorNickname: userProfile?.nickname ?? "",
+      authorProfileImageUrl: userProfile?.profileImageUrl ?? null,
       body: body.trim(),
       imageLocalPath: imageUri ?? undefined,
     });
@@ -62,6 +73,7 @@ export default function CreatePostScreen({ navigation }: any) {
           ]}
           keyboardDismissMode="on-drag"
           keyboardShouldPersistTaps="handled"
+          scrollEnabled={false}
         >
           <View style={styles.container}>
 
@@ -95,6 +107,8 @@ export default function CreatePostScreen({ navigation }: any) {
                 </TouchableOpacity>
               </View>
             )}
+
+
 
           </View>
         </ScrollView>
@@ -131,8 +145,16 @@ export default function CreatePostScreen({ navigation }: any) {
 
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: '#ffffff' },
-  flex: { flex: 1, backgroundColor: '#ffffff' },
+  safe: { 
+    flex: 1, 
+    minHeight: 400, 
+    backgroundColor: '#ffffff', 
+    paddingBottom: 100 
+  },
+  flex: { 
+    flex: 1, 
+    backgroundColor: '#ffffff' 
+  },
   container: {
     flex: 1,
     paddingHorizontal: 20,
@@ -173,11 +195,11 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 10,
     borderRadius: 10,
-    padding: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 0, 
     fontSize: 16,
     minHeight: 45,
   },
-
   // iOS 액세서리 바
   accessoryBar: {
     height: 55,
@@ -188,7 +210,6 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     alignItems: 'flex-end',
   },
-
   // Android 하단 바
   bottomBar: {
     height: 55,
@@ -203,7 +224,6 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     alignItems: 'flex-end',
   },
-
   postBtn: {
     minWidth: 65,
     height: 35,

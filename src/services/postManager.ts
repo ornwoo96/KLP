@@ -3,32 +3,46 @@ import storage from '@react-native-firebase/storage';
 
 type NewPostInput = {
     authorId: string;
+    authorProfileImageUrl?: string | null;
+    authorNickname: string;
     body: string;
     imageLocalPath?: string;
 };
 
 export type Post = {
-    id: string;
+    postId: string;
     authorId: string;
     authorProfileImageUrl?: string;
-    title: string;
+    authorNickname: string;
     body: string;
     imageUrl?: string;
     createdAt: FirebaseFirestoreTypes.Timestamp;
-    updatedAt?: FirebaseFirestoreTypes.Timestamp;
 };
 
-const database = firestore().collection('posts');
+export type Comment = {
+    id: string;
+    postId: string;
+    authorId: string;
+    authorNickname?: string;
+    authorProfileImageUrl?: string | null;
+    body: string;
+    createdAt: FirebaseFirestoreTypes.Timestamp;
+};
+
+
+const postDatabase = firestore().collection('posts');
+const col = (postId: string) =>
+    firestore().collection('posts').doc(postId).collection('comments');
 
 const getExt = (p: string) => {
     const m = p.match(/\.(\w+)(?:\?|#|$)/);
     return (m?.[1] ?? 'jpg').toLowerCase();
-  };
-  
+};
+
 
 export const PostManager = {
-    async create(input: NewPostInput): Promise<string> {
-        const docRef = database.doc();
+    async createPost(input: NewPostInput): Promise<string> {
+        const docRef = postDatabase.doc();
         const postId = docRef.id;
 
         let imageUrl: string | undefined;
@@ -37,33 +51,46 @@ export const PostManager = {
             const ext = getExt(input.imageLocalPath);
             const objectPath = `posts/${postId}/image.${ext}`;
             const ref = storage().ref(objectPath);
-            await ref.putFile(input.imageLocalPath); 
+            await ref.putFile(input.imageLocalPath);
             imageUrl = await ref.getDownloadURL();
-          }
+        }
 
         await docRef.set({
             postId: postId,
             authorId: input.authorId,
+            authorProfileImageUrl: input.authorProfileImageUrl ?? null,
+            authorNickname: input.authorNickname,
             body: input.body,
-            imageUrls: imageUrl ?? null,
+            imageUrl: imageUrl ?? null,
             createdAt: firestore.FieldValue.serverTimestamp(),
         });
 
         return postId;
     },
 
-    async get(postId: string): Promise<Post | null> {
-        const snap = await database.doc(postId).get();
-        if (!snap.exists) return null;
-        return { id: snap.id, ...(snap.data() as any) } as Post;
-    },
-
-    async listPage(limitN: number, cursor?: FirebaseFirestoreTypes.DocumentSnapshot) {
-        let q = database.orderBy('createdAt', 'desc').limit(limitN);
+    async postlistPage(limitN: number, cursor?: FirebaseFirestoreTypes.DocumentSnapshot) {
+        let q = postDatabase.orderBy('createdAt', 'desc').limit(limitN);
         if (cursor) q = q.startAfter(cursor);
         const snap = await q.get();
         const items = snap.docs.map(d => ({ id: d.id, ...(d.data() as any) } as Post));
         const nextCursor = snap.docs.at(-1);
         return { items, nextCursor };
+    },
+
+    async createComment(postId: string, data: Omit<Comment, 'id' | 'createdAt' | 'postId'>) {
+        await col(postId).add({
+            postId,
+            ...data,
+            createdAt: firestore.FieldValue.serverTimestamp(),
+        });
+    },
+
+    async commentlist(postId: string, limitN = 30) {
+        const snap = await col(postId)
+            .orderBy('createdAt', 'desc')
+            .limit(limitN)
+            .get();
+        const items = snap.docs.map(d => ({ id: d.id, ...(d.data() as any) } as Comment));
+        return items.reverse(); // 화면에선 오래된 것부터 보이도록
     },
 };

@@ -9,7 +9,7 @@ import {
     Alert
 } from 'react-native';
 import * as ImagePicker from 'react-native-image-picker';
-import { useProfileSetup } from '../hooks/useUser';
+import { useProfileSetup } from '../../hooks/useUser';
 
 function ProfileSetupScreen({ navigation }: any) {
     const [nickname, setNickname] = useState('');

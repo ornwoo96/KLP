@@ -1,12 +1,11 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from './types';
-import LoginScreen from '../screens/LoginScreen';
-import SignupScreen from '../screens/SignupScreen';
-import MainScreen from '../screens/MainScreen';
-import DetailScreen from '../screens/PostDetailScreen';
-import CreatePostScreen from '../screens/CreatePostScreen';
-import ProfileSetupScreen from '../screens/ProfileSetupScreen';
+import LoginScreen from '../screens/onboarding/LoginScreen';
+import SignupScreen from '../screens/onboarding/SignupScreen';
+import MainScreen from '../screens/main/MainScreen';
+import PostDetailScreen from '../screens/postDetail/PostDetailScreen';
+import ProfileSetupScreen from '../screens/onboarding/ProfileSetupScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -18,8 +17,7 @@ const SCREENS: {
         { name: 'Login', component: LoginScreen, options: { headerShown: false } },
         { name: 'Signup', component: SignupScreen, options: { title: '회원가입' } },
         { name: 'Main', component: MainScreen, options: { title: '메인' } },
-        { name: 'Detail', component: DetailScreen, options: { title: '상세' } },
-        { name: 'CreatePost', component: CreatePostScreen, options: { title: '게시물 작성' } },
+        { name: 'PostDetail', component: PostDetailScreen, options: { title: '상세' } },
         { name: 'ProfileSetup', component: ProfileSetupScreen, options: { title: '프로필 작성' } },
     ];
 

@@ -1,8 +1,9 @@
+import type { Post } from '../services/postManager';
+
 export type RootStackParamList = {
     Login: undefined;
     Signup: undefined;
     Main: undefined;
-    Detail: undefined;
-    CreatePost: undefined;
+    PostDetail: { post: Post };
     ProfileSetup: undefined;
 };
