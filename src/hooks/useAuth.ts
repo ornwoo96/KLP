@@ -26,3 +26,16 @@ export function useLogin(onSuccess?: () => void) {
         },
     });
 }
+
+
+export function useLogout(onSuccess?: () => void) {
+    const setUser = useAuthStore((s) => s.setUser);
+
+    return useMutation({
+        mutationFn: () => AuthManager.logout(),
+        onSuccess: () => {
+            setUser(null);
+            onSuccess?.();
+        },
+    });
+}

@@ -59,7 +59,9 @@ function ProfileSetupScreen({ navigation }: any) {
                 disabled={!canSubmit}
                 onPress={handleSave}
             >
-                <Text style={styles.buttonText}>프로필 등록</Text>
+                <Text style={styles.buttonText}>
+                    {isSubmitting ? '프로필 등록 중...' : '프로필 등록'}
+                </Text>
             </TouchableOpacity>
         </View>
     );
@@ -78,19 +80,20 @@ const styles = StyleSheet.create({
     imageWrapper: {
         width: 120,
         height: 120,
-        borderRadius: 60, // 동그랗게
+        borderRadius: 60,
         borderWidth: 1,
         borderColor: '#ccc',
         marginBottom: 24,
         alignItems: 'center',
         justifyContent: 'center',
-        overflow: 'hidden', // 이미지가 영역 벗어나지 않게
+        overflow: 'hidden',
     },
     image: {
         width: '100%',
         height: '100%',
     },
     input: {
+        height: 40,
         width: '80%',
         borderWidth: 1,
         borderColor: '#ccc',
@@ -100,10 +103,11 @@ const styles = StyleSheet.create({
         marginBottom: 16,
     },
     button: {
+        height: 40,
         width: '80%',
-        paddingVertical: 14,
         borderRadius: 8,
         alignItems: 'center',
+        justifyContent: 'center',
     },
     buttonEnabled: {
         backgroundColor: '#2979ff',

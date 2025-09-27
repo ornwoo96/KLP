@@ -49,13 +49,25 @@ function LoginScreen({ navigation }: Props) {
                 secureTextEntry
             />
 
-            <Button
-                title="로그인"
+            <TouchableOpacity
+                style={[
+                    styles.loginBtn,
+                    loginMutation.isPending && { opacity: 0.5 },
+                ]}
                 onPress={handleLogin}
-            />
+                disabled={loginMutation.isPending} 
+            >
+                <Text style={styles.loginBtnText}>
+                    {loginMutation.isPending ? '로그인 중...' : '로그인'}
+                </Text>
+            </TouchableOpacity>
 
-            <TouchableOpacity onPress={handleSignup} style={{ marginTop: 16 }}>
-                <Text style={{ color: '#2979ff' }}>회원가입</Text>
+            <TouchableOpacity
+                style={styles.signupBtn}
+                onPress={handleSignup}
+                disabled={loginMutation.isPending} 
+            >
+                <Text style={styles.signupBtnText}>회원가입</Text>
             </TouchableOpacity>
         </View>
     );
@@ -70,11 +82,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     title: {
-        fontSize: 24,
-        marginBottom: 24,
-        fontWeight: '600',
+        fontSize: 28,
+        marginBottom: 30,
+        fontWeight: '700',
     },
     input: {
+        height: 40,
         width: '80%',
         borderWidth: 1,
         borderColor: '#ccc',
@@ -82,6 +95,34 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         paddingVertical: 10,
         marginBottom: 16,
+    },
+    loginBtn: {
+        width: '80%',                
+        height: 40,                 
+        borderRadius: 10,            
+        backgroundColor: '#2979ff',  
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 8,
+    },
+    loginBtnText: {
+        color: '#fff',
+        fontSize: 15,
+        fontWeight: '600',
+    },
+    signupBtn: {
+        width: '80%',
+        height: 40,
+        borderRadius: 10,
+        backgroundColor: 'lightgray',     
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 16,
+    },
+    signupBtnText: {
+        color: '#fff',             
+        fontSize: 15,
+        fontWeight: '600',
     },
 });
 

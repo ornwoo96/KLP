@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useCallback, useState } from 'react';
 import {
-  View, FlatList, RefreshControl, ActivityIndicator,
+  View, FlatList, RefreshControl, ActivityIndicator, Alert
 } from 'react-native';
 import { Text } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -11,6 +11,7 @@ import { usePostsFeed } from '../../hooks/usePost';
 import type { RootStackParamList } from '../../navigation/types';
 import DefaultBottomSheet from '../../components/DefaultBottomSheet';
 import CreatePostSheet from './CreatePostSheet';
+import { useLogout } from '../../hooks/useAuth'; 
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Main'>;
 
@@ -25,13 +26,6 @@ export default function MainScreen({ navigation }: Props) {
     isFetchingNextPage,
   } = usePostsFeed();
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerTitle: '',
-      headerLeft: () => <HeaderProfile onPress={() => { }} />,
-    });
-  }, [navigation]);
-
   const posts = data?.pages.flatMap(p => p.items) ?? [];
 
   const loadMore = useCallback(() => {
@@ -39,6 +33,29 @@ export default function MainScreen({ navigation }: Props) {
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   const [ openCreatePost, setOpenCreatePost ] = useState(false);
+
+  const logout = useLogout(() => navigation.replace('Login'));
+
+  const confirmLogout = useCallback(() => {
+    if (logout.isPending) return;
+    Alert.alert(
+      '로그아웃 하시겠습니까?',
+      '',
+      [
+        { text: '취소', style: 'cancel' },
+        { text: '로그아웃', style: 'destructive', onPress: () => logout.mutate() },
+      ],
+      { cancelable: true }
+    );
+  }, [logout.isPending, logout.mutate, navigation]);
+
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: '',
+      headerLeft: () => <HeaderProfile onPress={confirmLogout} />,
+    });
+  }, [navigation]);
 
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>

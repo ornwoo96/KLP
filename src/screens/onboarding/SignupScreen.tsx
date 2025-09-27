@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { 
-    View, 
-    TextInput, 
-    Button, 
-    StyleSheet, 
-    Text, 
-    Alert 
+import {
+    View,
+    TextInput,
+    Button,
+    StyleSheet,
+    Text,
+    Alert,
+    TouchableOpacity
 } from 'react-native';
 import { useSignup } from '../../hooks/useAuth';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -32,14 +33,21 @@ export default function SignupScreen({ navigation }: Props) {
             Alert.alert('알림', '이메일/비밀번호를 입력해주세요.');
             return;
         }
-        signupMutation.mutate({ email, password });
+        signupMutation.mutate(
+            { email, password },
+            {
+                onError: (e: any) => {
+                    Alert.alert('가입 실패', e.message);
+                },
+            }
+        );
     };
 
     return (
         <View style={styles.container}>
             <TextInput
                 style={styles.input}
-                placeholder="이메일 입력"
+                placeholder="E-Mail 입력"
                 value={email}
                 onChangeText={setEmail}
                 autoCapitalize="none"
@@ -54,16 +62,16 @@ export default function SignupScreen({ navigation }: Props) {
                 secureTextEntry
             />
 
-            <Button
-                title={signupMutation.isPending ? '가입 중...' : '가입하기'}
+            <TouchableOpacity
+                style={[
+                    styles.signupBtn,
+                    signupMutation.isPending && { opacity: 0.5 },
+                ]}
                 onPress={onSubmit}
-            />
-
-            {signupMutation.isError && (
-                <Text style={{ color: 'red', marginTop: 8 }}>
-                    {(signupMutation.error as any)?.message ?? '회원가입 실패'}
-                </Text>
-            )}
+                disabled={signupMutation.isPending}
+            >
+                <Text style={styles.signupBtnText}>{signupMutation.isPending ? '가입 중...' : '가입하기'}</Text>
+            </TouchableOpacity>
         </View>
     );
 }
@@ -82,6 +90,7 @@ const styles = StyleSheet.create({
         fontWeight: '600'
     },
     input: {
+        height: 40,
         width: '80%',
         borderWidth: 1,
         borderColor: '#ccc',
@@ -89,5 +98,19 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         paddingVertical: 10,
         marginBottom: 16
+    },
+    signupBtn: {
+        width: '80%',
+        height: 40,
+        borderRadius: 10,
+        backgroundColor: '#2979ff',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 10,
+    },
+    signupBtnText: {
+        color: '#fff',
+        fontSize: 15,
+        fontWeight: '600',
     },
 });
