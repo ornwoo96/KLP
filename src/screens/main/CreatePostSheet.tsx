@@ -100,7 +100,7 @@ export default function CreatePostSheet({ onPosted, onClose }: Props) {
               multiline
               scrollEnabled={false}
               textAlignVertical="top"
-              {...(Platform.OS === 'ios' ? { inputAccessoryViewID: "MY_BAR" } : {})}
+              {...(Platform.OS === 'ios' ? { inputAccessoryViewID: "COMMENT_BAR" } : {})}
             />
 
             <TouchableOpacity style={styles.photoBtn} onPress={pickImage}>
@@ -124,7 +124,6 @@ export default function CreatePostSheet({ onPosted, onClose }: Props) {
         </ScrollView>
 
         <PostAccessoryBar
-          accessoryID={'POST_BAR'}
           canPost={canPost}
           isPending={isPending}
           onPressPost={onPressPost}

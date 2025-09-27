@@ -72,14 +72,13 @@ export default function CreatePostCommentSheet({ postId, onPosted, onClose }: Pr
                             multiline
                             scrollEnabled={false}
                             textAlignVertical="top"
-                            {...(Platform.OS === 'ios' ? { inputAccessoryViewID: "MY_BAR" } : {})}
+                            {...(Platform.OS === 'ios' ? { inputAccessoryViewID: "COMMENT_BAR" } : {})}
                         />
 
                     </View>
                 </ScrollView>
 
                 <PostAccessoryBar
-                    accessoryID={'POST_BAR'}
                     canPost={canPost}
                     isPending={isPending}
                     onPressPost={onPressPost}

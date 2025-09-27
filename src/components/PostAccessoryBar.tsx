@@ -3,7 +3,7 @@ import { Platform, StyleSheet, Text, TouchableOpacity, View, InputAccessoryView,
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type Props = {
-  accessoryID: string;
+  accessoryID?: string;
   canPost: boolean;
   isPending?: boolean;
   onPressPost: () => void;
@@ -11,7 +11,7 @@ type Props = {
 };
 
 export default function PostAccessoryBar({ 
-    accessoryID, 
+    accessoryID = 'COMMENT_BAR', 
     canPost, 
     isPending, 
     onPressPost,
