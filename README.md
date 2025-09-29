@@ -1,97 +1,99 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+## KLP 과제 - 김동우
+#### [주제] 
+- 간단한 커뮤니티 앱 MVP 개발
 
-# Getting Started
+#### [요구 사항] 
+- 회원가입/로그인
+- 글(목록/상세/작성)
+- 이미지첨부
+- 댓글
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+<br>
 
-## Step 1: Start Metro
+## 주요 기능
+| 회원가입 | 로그인 |
+|:---:|:---:|
+|<img src="https://github.com/user-attachments/assets/5a765532-5534-4fd3-a132-b6d7c695a2d8" width="175" >|<img src="https://github.com/user-attachments/assets/80e66975-2cf9-4504-83e3-946d212fe806" width="175">|
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+| 게시물 목록 · 상세 | 이미지 미리보기 |
+|:---:|:---:|
+|<img src="https://github.com/user-attachments/assets/380de89f-0884-4fa3-9644-c52e7a33f0a5" width="175" >|<img src="https://github.com/user-attachments/assets/98ba0a2c-ac94-4713-a6ca-ee3e345d0427" width="175" >|
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+| 게시물 작성 | 댓글 작성 |
+|:---:|:---:|
+|<img src="https://github.com/user-attachments/assets/719c6062-a252-48ca-867c-03ee5d0447de" width="175" >|<img src="https://github.com/user-attachments/assets/3eff1ef4-ffe3-4d7c-8803-de20e459e0e4" width="175">|
 
-```sh
-# Using npm
-npm start
 
-# OR using Yarn
-yarn start
+<br>
+
+## 개발 환경
+- React Native CLI
+- React Native 0.81.4
+- React 19.1.0
+- Node.js 20+
+- Yarn 3.6.4
+- iOS 16.0+ / Android 13.0+ (테스트 환경)
+
+<br>
+
+## 사용 기술 및 라이브러리
+- UI & 인터랙션 : `BottomSheet` · `Reanimated`
+- 상태 관리 & 비동기 처리 : `Zustand` · `React Query`
+-	네비게이션 : `ReactNavigation`
+-	이미지 & 미디어 : `ImagePicker`
+- 스토리지 : `Firebase`(`Auth` · `Firestore` · `Storage`)
+
+<br>
+
+## 폴더 구조
+```
+📂 src : 앱의 모든 소스코드 루트
+├── 📂 assets : 정적 자원 (예: 아이콘, 이미지 등)
+│   └── 📂 icons : 아이콘 모음
+├── 📂 components : 공통적으로 재사용 가능한 UI 컴포넌트
+├── 📂 hooks : React Query, Zustand 등을 활용한 커스텀 훅 모음
+├── 📂 navigation : 네비게이션 관련 설정 및 타입 정의
+├── 📂 screens : 화면 단위 컴포넌트 (기능별 하위 폴더로 구분)
+│   ├── 📂 main : 메인 피드 및 게시물 관련 화면
+│   ├── 📂 onboarding : 로그인, 회원가입, 프로필 설정 등 온보딩 화면
+│   └── 📂 postDetail : 게시물 상세 및 댓글 관련 화면
+├── 📂 services : Firebase 등 외부 API/서비스 호출 및 데이터 처리 로직
+├── 📂 store : Zustand 기반 상태 관리 스토어
+└── 📂 utils : 유틸리티 함수 모음
 ```
 
-## Step 2: Build and run your app
+<br>
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
 
-### Android
+## 설치 방법
 
-```sh
-# Using npm
-npm run android
 
-# OR using Yarn
-yarn android
+#### 1. 레포지토리 클론
+```
+git clone https://github.com/your-repo/KLP.git
+cd KLP
 ```
 
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
+#### 2. 패키지 설치
+```
+yarn install
 ```
 
-Then, and every time you update your native dependencies, run:
 
-```sh
-bundle exec pod install
+#### 3. iOS 설정 (Mac 환경)
+```
+cd ios && pod install && cd ..
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+#### 4. 앱 실행
 
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
+```
+yarn ios   # iOS 시뮬레이터 실행
+yarn android  # Android 에뮬레이터 실행
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+<br>
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
 
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+## 마무리
+읽어주셔서 감사합니다.
